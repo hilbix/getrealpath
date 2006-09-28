@@ -1,0 +1,16 @@
+Print realpath to stdout
+# $Header$
+#
+# This comment must be followed by a blank line!
+#
+# $Log$
+# Revision 1.1  2006-09-28 01:54:29  tino
+# Commit for dist
+#
+
+Actually there is a "realpath" utility for Debian which has more features than this here.
+
+However I want tools which are optimized for pipe usage.  So I wanted to have something like
+<pre>
+find . -type f | getrealpath - | ...
+</pre>

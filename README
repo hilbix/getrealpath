@@ -1,0 +1,22 @@
+$Header$
+
+realpath utility for shell pipe usage.
+
+Compile:
+	make
+
+Usage:
+	getrealpath file [file...]
+	find . -type f | getrealpath - | ...
+
+About:
+	See DESCRIPTION
+
+-Tino
+webmaster@scylla-charybdis.com
+http://www.scylla-charybdis.com/tools.php
+
+$Log$
+Revision 1.1  2006-09-28 01:54:29  tino
+Commit for dist
+
