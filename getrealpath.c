@@ -19,7 +19,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * $Log$
- * Revision 1.1  2006-09-28 01:54:29  tino
+ * Revision 1.2  2006-10-03 20:40:21  tino
+ * Version output added
+ *
+ * Revision 1.1  2006/09/28 01:54:29  tino
  * Commit for dist
  *
  */
@@ -27,6 +30,8 @@
 #include <stdio.h>
 
 #include "tino/main.h"
+
+#include "getrealpath_version.h"
 
 static void
 main_realpath(const char *s)
@@ -47,6 +52,7 @@ main(int argc, char **argv)
   return tino_main_file(argc, argv, 
 			main_realpath,
 			"file...\n"
+			"\t\tVersion " GETREALPATH_VERSION " compiled " __DATE__ "\n"
 			"\tPrints full path of file\n"
 			"\tIf path is - the names are read from stdin"
 			);
