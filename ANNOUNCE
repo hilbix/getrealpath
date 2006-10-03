@@ -1,1 +1,3 @@
-First version.
+Now with tinolib which allows compile under Ubuntu, too.
+
+The probelem is, that Ubuntu has no gawk as /bin/awk, but my scripts need gawk.
