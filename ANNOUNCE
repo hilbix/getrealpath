@@ -1,1 +1,6 @@
-Another fix in the source for Ubuntu
+Now uses my own implementation of getrealpath, not the libc variant.
+
+This improves behavior on non-existent paths, as the behavior on
+non-existent files is not defined in the libc variant.  Note that the
+GNU libc v2 seems to work similar to what I did, however I do not want
+to rely on undocumented behavior (undocumented according to POSIX).

@@ -1,56 +1,60 @@
 /* $Header$
  *
- * Print a real path
+ * Print the real path of files, works for nonexistent paths, too.
  *
- * Copyright (C)2006 Valentin Hilbig, webmaster@scylla-charybdis.com
+ * Copyright (C)2006-2008 Valentin Hilbig <webmaster@scylla-charybdis.com>
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ * This is release early code.  Use at own risk.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301 USA.
  *
  * $Log$
+ * Revision 1.3  2008-11-25 00:50:41  tino
+ * Now uses my own version of getrealpath
+ *
  * Revision 1.2  2006-10-03 20:40:21  tino
  * Version output added
- *
- * Revision 1.1  2006/09/28 01:54:29  tino
- * Commit for dist
- *
  */
 
-#include <stdio.h>
-
-#include "tino/main.h"
+#include "tino/main_file.h"
+#include "tino/filetool.h"
 
 #include "getrealpath_version.h"
 
 static void
 main_realpath(const char *s)
 {
-  size_t	max;
-  char		*buf;
+  const char	*buf;
 
-  max	= pathconf (s, _PC_PATH_MAX);
-  buf	= tino_alloc(max);
-  realpath(s, buf);
-  printf("%s\n", buf);
-  free(buf);
+  buf	= tino_file_realpathE(s);
+  if (!buf)
+    {
+      perror(s);
+      return;
+    }
+  fputs(buf, stdout);
+  tino_free_constO(buf);
+  putchar('\n');
 }
 
 int
 main(int argc, char **argv)
 {
-  return tino_main_file(argc, argv, 
-			main_realpath,
+  return tino_main_file(main_realpath, NULL,
+			argc, argv,
 			"file...\n"
 			"\t\tVersion " GETREALPATH_VERSION " compiled " __DATE__ "\n"
 			"\tPrints full path of file\n"
