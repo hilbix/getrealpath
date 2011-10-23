@@ -1,6 +1,10 @@
-Now uses my own implementation of getrealpath, not the libc variant.
+Current tinolib support, this means ANSI escaped output etc.
 
-This improves behavior on non-existent paths, as the behavior on
-non-existent files is not defined in the libc variant.  Note that the
-GNU libc v2 seems to work similar to what I did, however I do not want
-to rely on undocumented behavior (undocumented according to POSIX).
+Note: To get old behavior, use 'getrealpath -o "arg"', else output is ANSI escaped.
+This often does not make any difference, except you have unusual paths.
+
+For example:
+
+getrealpath "/a b" now outputs "/a\x20b"
+
+getrealpath -o "/a b" outputs "/a b"

@@ -22,6 +22,9 @@
  * 02110-1301 USA.
  *
  * $Log$
+ * Revision 1.4  2011-10-23 00:28:27  tino
+ * Tinolib support with options, ANSI escapes now default
+ *
  * Revision 1.3  2008-11-25 00:50:41  tino
  * Now uses my own version of getrealpath
  *
@@ -35,19 +38,19 @@
 #include "getrealpath_version.h"
 
 static void
-main_realpath(const char *s)
+main_realpath(const char *s, int flags)
 {
   const char	*buf;
 
   buf	= tino_file_realpathE(s);
   if (!buf)
     {
-      perror(s);
+      TINO_ERR1("ETTRP100A realpath %s", s);
       return;
     }
-  fputs(buf, stdout);
+  tino_main_file_escape(buf, flags);
   tino_free_constO(buf);
-  putchar('\n');
+  tino_main_file_line(flags);
 }
 
 int
@@ -55,9 +58,7 @@ main(int argc, char **argv)
 {
   return tino_main_file(main_realpath, NULL,
 			argc, argv,
-			"file...\n"
-			"\t\tVersion " GETREALPATH_VERSION " compiled " __DATE__ "\n"
-			"\tPrints full path of file\n"
-			"\tIf path is - the names are read from stdin"
+			GETREALPATH_VERSION,
+			"Prints full path of file"
 			);
 }
