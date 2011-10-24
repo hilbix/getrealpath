@@ -4,13 +4,19 @@ Print realpath to stdout
 # This comment must be followed by a blank line!
 #
 # $Log$
-# Revision 1.1  2006-09-28 01:54:29  tino
-# Commit for dist
+# Revision 1.2  2011-10-24 04:09:31  tino
+# Commenting new arguments
 #
 
-Actually there is a "realpath" utility for Debian which has more features than this here.
+Actually there is a "realpath" utility for Debian which has some different features.
 
-However I want tools which are optimized for pipe usage.  So I wanted to have something like
+However I need tools which are optimized for pipe usage, like
 <pre>
-find . -type f | getrealpath - | ...
+find . -type f -print0 |
+getrealpath -0 |
+while read -r name;
+do
+  eval eval name="\$'$name'";
+  ...;
+done
 </pre>

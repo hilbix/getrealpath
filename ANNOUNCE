@@ -1,10 +1,5 @@
-Current tinolib support, this means ANSI escaped output etc.
+Current tinolib support, this means options for escapes.
 
-Note: To get old behavior, use 'getrealpath -o "arg"', else output is ANSI escaped.
-This often does not make any difference, except you have unusual paths.
+One note for option '--':
 
-For example:
-
-getrealpath "/a b" now outputs "/a\x20b"
-
-getrealpath -o "/a b" outputs "/a b"
+'getrealpath --' does nothing, similar to 'echo -n | getrealpath -'.
